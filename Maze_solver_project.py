@@ -1,11 +1,7 @@
 
 
 import argparse  # importing the command line python package
-
-# ******************************************************************/
-#    THIS FUNCTION SOLVES THE MAZE PROBLEM USING BACKTRACKING. IT  #
-#    RETURNS FALSE IF NO PATH IS AVAILABLE,OTHERWISE RETURNS TRUE. #
-# ******************************************************************/
+import datetime
 
 
 class Maze:
@@ -24,42 +20,45 @@ class Maze:
         if (row >= 0 and col >= 0 and row < n and col < n and
                 solution[row][col] == 0 and self.maze[row][col] == 1):
             solution[row][col] = 1  # visiting the cell
+            # maze_solver_dfs call recursively to find the valid path
+
             if(self.maze_runner_dfs(row+1, col) or  # going down
                self.maze_runner_dfs(row-1, col) or  # going up
                self.maze_runner_dfs(row, col+1) or  # going right
                self.maze_runner_dfs(row, col-1)):
-               return True
+                return True
             else:
 
                 solution[row][col] = 0  # backtracking
 
             return False
         else:
-            
+
             return False
 
-    # *******************************************************************************************************************
-
-    # *********************************************************************************#
-    #               FUNCTION TO PRINT THE THE PATH IN THE STRING FORAMTE     #
+    #               print_path() display the path in string format    #
     # *************************************************************************#
 
-    def print_function(self, sol):
+    def print_path(self, sol):
         file2.write("***\n\n" + "the  path followed is " +
-                    self.printDirec(sol) + "reach to the destination: \n\n")
+                    self.direction(sol) + "reach to the destination: \n\n")
         for i in sol:
             for j in i:
                 file2.write(" " + str(j) + " ")
             file2.write('\n')
             # print the output path in matrix form
+        time = datetime.datetime.now()
+    # call the date time inbuild function that generate the local date time
 
-    # ******************************************************************************#
-    #  FUNCTION THAT CHECK THE MOVMENT OF CELL
-    # TO REACH THE MAZE TO IT'S DESTINATION
-    #                 notice-:This is the extra feature
-    # ************************************************************#
+        file2.write("***\n" + "Time of execution at : " +
+                    time.strftime("%d-%m-%Y * %H:%M:%S\n" + "***\n\n"))
+        # printing the the path by notaion up down left right notaion
 
-    def printDirec(self, solvedMaze):  # call of direction printing function
+
+    #direction() function checks the visited path and stores the direction
+    # ***********************************************************************#
+
+    def direction(self, solvedMaze):  # call of direction printing function
         n = len(solvedMaze)    # finding the  lenghth of the solved maze
         # make a variable to store in a array cell intial as false
         visited = [[False for _ in range(n)] for _ in range(n)]
@@ -71,48 +70,46 @@ class Maze:
                 if solvedMaze[i+1][j] == 1 and visited[i+1][j] is False:
                     visited[i+1][j] = True
                     i = i+1
-                    arr += "Down=>"
+                    arr += "D=>"
                 elif solvedMaze[i][j-1] == 1 and visited[i][j-1] is False:
                     visited[i][j-1] = True
                     j = j-1
-                    arr += "Left=>"
+                    arr += "L=>"
             elif i == n-1:
                 if solvedMaze[i][j+1] == 1 and visited[i][j+1] is False:
                     visited[i][j+1] = True
                     j = j+1
-                    arr += "Right=>"
+                    arr += "R=>"
                 elif solvedMaze[i-1][j] == 1 and visited[i-1][j] is False:
                     visited[i-1][j] = True
                     i = i-1
-                    arr += "Up=>"
+                    arr += "U=>"
             else:
                 if solvedMaze[i+1][j] == 1 and visited[i+1][j] is False:
                     visited[i+1][j] = True
                     i = i+1
-                    arr += "Down=>"
+                    arr += "D=>"
                 elif solvedMaze[i][j+1] == 1 and visited[i][j+1] is False:
                     visited[i][j+1] = True
                     j = j+1
-                    arr += "Right=>"
+                    arr += "R=>"
                 elif solvedMaze[i-1][j] == 1 and visited[i-1][j] is False:
                     visited[i-1][j] = True
                     i = i-1
-                    arr += "Up=>"
+                    arr += "U=>"
                 elif solvedMaze[i][j-1] == 1 and visited[i][j-1] is False:
                     visited[i][j-1] = True
                     j = j-1
-                    arr += "Left=>"
+                    arr += "L=>"
         return arr
 
 
-# *******************************************************************************#
-#                          DRIVER FUNCTION                   #
-# *******************************************************************************#
+#******Driver Function******   
 
 
 if __name__ == "__main__":
     maze = []   # appending all cell elemt from the comand line input by user
-    maze1 = Maze(maze)
+    maze1 = Maze(maze)     #creating the instance of the class Maze
 # TAKING FILE ARGUMENTS FROM COMMAND LINE.  (STEP-1)
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", help="Input File")
@@ -131,8 +128,12 @@ if __name__ == "__main__":
 
     # MAZE-RUNNER
     if(maze1.maze_runner_dfs(0, 0)):  # (STEP-3)
-        maze1.print_function(solution)
+        maze1.print_path(solution)
     else:
         file2.write("***\n-1\n")
         file2.write(
             " sorry there is no any path available to reach destination.")
+        now = datetime.datetime.now()
+        file2.write("\nTime of execution at : " +
+                    now.strftime("%d-%m-%Y * %H:%M:%S") + "\n***\n\n\n")
+
