@@ -1,7 +1,7 @@
 
 
 import argparse  # importing the command line python package
-import datetime
+import datetime  #importing the date and time 
 
 
 class Maze:
@@ -20,11 +20,11 @@ class Maze:
         if (row >= 0 and col >= 0 and row < n and col < n and
                 solution[row][col] == 0 and self.maze[row][col] == 1):
             solution[row][col] = 1  # visiting the cell
-            # maze_solver_dfs call recursively to find the valid path
+            # maze_solver_dfs() call recursively to find the valid path by going deep(dfs)
 
-            if(self.maze_runner_dfs(row+1, col) or  # going down
-               self.maze_runner_dfs(row-1, col) or  # going up
-               self.maze_runner_dfs(row, col+1) or  # going right
+            if(self.maze_runner_dfs(row+1, col) or
+               self.maze_runner_dfs(row-1, col) or
+               self.maze_runner_dfs(row, col+1) or 
                self.maze_runner_dfs(row, col-1)):
                 return True
             else:

@@ -11,6 +11,10 @@ The Github python project consists of 3 contents.
 * Maze_solver_project.exe 
 <hr><br>
 
+##### Maze_Solver_project.exe<hr>
+`download Maze_Solver_project.exe and install on your pc to run the file.`
+<hr><br>
+
 
 ##### My Approach<hr>
 I have implemented the DFS(Depth First Search) algorithm by taking the oops concept and using backtracking recursive. As there are two approaches to solve this problem using dfs, one if using stack operation(iterative approach) and the other is the recursive approach using the backtracking. This approach goes deep in the cell and tries to fetch the valid path by keeping a note on the visited path, so that it won't trace the same path again.
